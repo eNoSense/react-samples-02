@@ -2,7 +2,7 @@
   "name": "react-samples-01",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://enosense.github.io/react-samples-01/build/",
+  "homepage": "https://enosense.github.io/react-samples-02/build/",
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

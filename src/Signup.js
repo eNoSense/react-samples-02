@@ -1,33 +1,50 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import AV from 'leancloud-storage';
+import Validator from './validate'
 
 class Signup extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      sign_up_form: {
+      signUpData: {
         nickname: '',
         email: '',
         password: '',
-        confirm_password: '',
+        confirmPassword: '',
       },
-      error_valid: {}
+      errors: {}
     }
   }
 
   onValueChange (event, field) {
     const val = event.target.value
     let copy = JSON.parse(JSON.stringify(this.state))
-    copy.sign_up_form[field] = val
-    copy.error_valid = {}
+    copy.signUpData[field] = val
+    copy.errors = {}
     this.setState(copy)
   }
 
   onSubmitSignUpForm () {
-    const {nickname, email, password} = this.state.sign_up_form
+    const {nickname, email, password, confirmPassword} = this.state.signUpData
     //
-    if (!this.checkValid()) {
+    const data = this.state.signUpData
+    let rules = [
+      {key: 'nickname', minLength: 3},
+      {key: 'password', minLength: 6},
+      {key: 'email', pattern: 'email'},
+    ]
+    let validator = new Validator()
+    let errors = validator.validate(data, rules)
+    //
+    if (confirmPassword !== password) {
+      errors.confirmPassword = {pattern: '两次密码输入不一致'}
+    }
+    console.log(errors)
+    this.setState({
+      errors
+    })
+    if (Object.keys(errors).length > 0) {
       return
     }
     //
@@ -42,18 +59,18 @@ class Signup extends Component {
     }, (error) => {
       if (error.code === 125) {
         const copy = JSON.parse(JSON.stringify(this.state))
-        let { error_valid } = copy
-        error_valid.email = '邮箱格式不正确'
+        let { errors } = copy
+        errors.email = { email: '邮箱格式不正确' }
         this.setState(copy)
       } else if (error.code === 202) {
         const copy = JSON.parse(JSON.stringify(this.state))
-        let { error_valid } = copy
-        error_valid.nickname = '用户名已被占用'
+        let { errors } = copy
+        errors.nickname = { minLength: '用户名已被占用' }
         this.setState(copy)
       }  else if (error.code === 203) {
         const copy = JSON.parse(JSON.stringify(this.state))
-        let { error_valid } = copy
-        error_valid.email = error.rawMessage
+        let { errors } = copy
+        errors.email = { pattern: error.rawMessage }
         this.setState(copy)
       } else {
         console.log(error)
@@ -64,56 +81,33 @@ class Signup extends Component {
     })
   }
 
-  checkValid () {
-    const {nickname, email, password, confirm_password} = this.state.sign_up_form
-    const copy = JSON.parse(JSON.stringify(this.state))
-    let { error_valid } = copy
-    let noError = true
-    
-    if (nickname.length < 3) {
-      error_valid.nickname = '用户名不能少于三个字符'
-      noError = false
-    }
-
-    if (email.indexOf('@') < 0) {
-      error_valid.email = '邮箱格式不正确'
-      noError = false
-    }
-
-    if (password.length < 6) {
-      error_valid.password = '密码不能少于六个字符'
-      noError = false
-    }
-
-    if (confirm_password !== password) {
-      error_valid.confirm_password = '两次输入密码不一致'
-      noError = false
-    }
-
-    this.setState(copy)
-    return noError
-  }
-
   render () {
     return (
       <div className="container">
         <div className="sign_up">
           <h1>用户注册</h1>
-          <p> 
-            <input onChange={(e) => { this.onValueChange(e, 'nickname')}} value={this.state.sign_up_form.nickname} className={this.state.error_valid.nickname ? 'middle error' : 'middle'} type="text" placeholder="昵称" />
-            {this.state.error_valid.nickname ? <span className="error-tip">{this.state.error_valid.nickname}</span> : ''}
+          <p>
+            <input onChange={(e) => { this.onValueChange(e, 'nickname')}} value={this.state.signUpData.nickname}
+              className={this.state.errors.nickname ? 'middle error' : 'middle'} type="text" placeholder="昵称" />
+            {this.state.errors.nickname ? <span className="error-tip">{this.state.errors.nickname.minLength}</span> : ''}
           </p>
-          <p> 
-            <input onChange={(e) => { this.onValueChange(e, 'email')}} value={this.state.sign_up_form.email}  className={this.state.error_valid.email ? 'middle error' : 'middle'} type="text" placeholder="Email" />
-            {this.state.error_valid.email ? <span className="error-tip">{this.state.error_valid.email}</span> : ''}
+          <p>
+            <input onChange={(e) => { this.onValueChange(e, 'email')}} value={this.state.signUpData.email}
+              className={this.state.errors.email ? 'middle error' : 'middle'} type="text" placeholder="Email" />
+            {this.state.errors.email ? <span className="error-tip">{this.state.errors.email.pattern}</span> : ''}
           </p>
-          <p> 
-            <input onChange={(e) => { this.onValueChange(e, 'password')}} value={this.state.sign_up_form.password}  className={this.state.error_valid.password ? 'middle error' : 'middle'} type="password" placeholder="密码" />
-            {this.state.error_valid.password ? <span className="error-tip">{this.state.error_valid.password}</span> : ''}
+          <p>
+            <input onChange={(e) => { this.onValueChange(e, 'password')}}
+              value={this.state.signUpData.password}  className={this.state.errors.password ? 'middle error' : 'middle'} type="password" placeholder="密码" />
+            {this.state.errors.password ? <span className="error-tip">{this.state.errors.password.minLength}</span> : ''}
           </p>
-          <p> 
-            <input onChange={(e) => { this.onValueChange(e, 'confirm_password')}} value={this.state.sign_up_form.confirm_password}  className={this.state.error_valid.confirm_password ? 'middle error' : 'middle'} type="password" placeholder="重复密码" /> 
-            {this.state.error_valid.confirm_password ? <span className="error-tip">{this.state.error_valid.confirm_password}</span> : ''}
+          <p>
+            <input onChange={(e) => { this.onValueChange(e, 'confirmPassword')}}
+              value={this.state.signUpData.confirmPassword}
+              className={this.state.errors.confirmPassword ? 'middle error' : 'middle'}
+              type="password" placeholder="重复密码" />
+            {this.state.errors.confirmPassword ?
+              <span className="error-tip">{this.state.errors.confirmPassword.pattern}</span> : ''}
           </p>
           <p> <input onClick={() => { this.onSubmitSignUpForm() }} className="middle-button" type="submit" value="注册"/> </p>
         </div>

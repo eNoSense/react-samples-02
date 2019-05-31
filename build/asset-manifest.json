@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/react-samples-01/build/static/css/main.02b2255f.chunk.css",
-    "main.js": "/react-samples-01/build/static/js/main.682adf58.chunk.js",
-    "main.js.map": "/react-samples-01/build/static/js/main.682adf58.chunk.js.map",
-    "runtime~main.js": "/react-samples-01/build/static/js/runtime~main.3fd3d518.js",
-    "runtime~main.js.map": "/react-samples-01/build/static/js/runtime~main.3fd3d518.js.map",
-    "static/js/2.a42ac5ef.chunk.js": "/react-samples-01/build/static/js/2.a42ac5ef.chunk.js",
-    "static/js/2.a42ac5ef.chunk.js.map": "/react-samples-01/build/static/js/2.a42ac5ef.chunk.js.map",
-    "index.html": "/react-samples-01/build/index.html",
-    "precache-manifest.d16d7432b9746e0f7a64ecb15b891531.js": "/react-samples-01/build/precache-manifest.d16d7432b9746e0f7a64ecb15b891531.js",
-    "service-worker.js": "/react-samples-01/build/service-worker.js",
-    "static/css/main.02b2255f.chunk.css.map": "/react-samples-01/build/static/css/main.02b2255f.chunk.css.map"
+    "main.css": "/react-samples-02/build/static/css/main.02b2255f.chunk.css",
+    "main.js": "/react-samples-02/build/static/js/main.ac0ee2bb.chunk.js",
+    "main.js.map": "/react-samples-02/build/static/js/main.ac0ee2bb.chunk.js.map",
+    "runtime~main.js": "/react-samples-02/build/static/js/runtime~main.5950273c.js",
+    "runtime~main.js.map": "/react-samples-02/build/static/js/runtime~main.5950273c.js.map",
+    "static/js/2.887c1e66.chunk.js": "/react-samples-02/build/static/js/2.887c1e66.chunk.js",
+    "static/js/2.887c1e66.chunk.js.map": "/react-samples-02/build/static/js/2.887c1e66.chunk.js.map",
+    "index.html": "/react-samples-02/build/index.html",
+    "precache-manifest.d17d2434af800696a347bbffc7e0aac2.js": "/react-samples-02/build/precache-manifest.d17d2434af800696a347bbffc7e0aac2.js",
+    "service-worker.js": "/react-samples-02/build/service-worker.js",
+    "static/css/main.02b2255f.chunk.css.map": "/react-samples-02/build/static/css/main.02b2255f.chunk.css.map"
   }
 }
