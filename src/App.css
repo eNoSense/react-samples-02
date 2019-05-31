@@ -1,0 +1,93 @@
+
+
+/* reset */
+body {
+  font: status-bar;
+  font-size: 12px;
+  line-height: 1.42858;
+  font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  margin: 0;
+  font-weight: 400;
+}
+
+body, form, ul, ol, dl, dd, p { margin: 0; }
+
+ul, ol {
+  list-style-type: none;
+  padding: 0;
+}
+
+img {
+  border: 0 none;
+  vertical-align: bottom;
+}
+
+button, input, select, textarea {
+  font-size: 1em;
+  font-family: inherit;
+}
+
+a, a:hover { text-decoration: none; }
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
+  padding: 100px;
+}
+
+.container h1 {
+  color: #ccc;
+  font-weight: 400;
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.container input[type="text"], .container input[type="password"], .container input[type="submit"], .container button {
+  padding: 10px;
+  border: 2px solid #eee;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.container input.error {
+  border: 2px solid red;
+}
+
+.container input[type="submit"], button {
+  background-color: rgb(0, 152, 255);
+  color: white;
+  border: 0 none;
+}
+
+.middle {
+  width: 300px;
+}
+
+.middle-button {
+  width: 100px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container a, .container span.aWithoutHref {
+  margin-left: 150px;
+  color: #ddd;
+  cursor: pointer;
+}
+
+.container a:hover, span.aWithoutHref:hover {
+  border-bottom: 1px solid;
+  color: rgb(0, 152, 255);
+}
+
+.container .error-tip {
+  margin-left: 12px;
+  color: red;
+}
